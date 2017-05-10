@@ -79,15 +79,20 @@ public class Ventana extends JFrame {
 				if(textField.getText().equals("") || textField_1.getText().equals("")){
 					lblResultado.setText("Se deben llenar todos los campos");
 				}else{
-					double x;
-					double dof;
-					double resultado;
-					simpson = new Simpson();
-					x = Double.parseDouble(textField.getText());
-					dof = Double.parseDouble(textField_1.getText());
-					resultado = simpson.simpsonFunction(10, dof, x);
-					//String resulString = String.valueOf(resultado);
-					lblResultado.setText("Resultado: "+ String.valueOf(resultado));
+					
+					if(isNumeric(textField.getText()) && isNumeric(textField_1.getText())){
+						double x;
+						double dof;
+						double resultado;
+						simpson = new Simpson();
+						x = Double.parseDouble(textField.getText());
+						dof = Double.parseDouble(textField_1.getText());
+						resultado = simpson.simpsonFunction(10, dof, x);
+						lblResultado.setText("Resultado: "+ String.valueOf(resultado));
+					}else{
+						lblResultado.setText("Todos los valores deben ser númericos");
+					}
+					
 				}
 			}
 		});
@@ -95,5 +100,14 @@ public class Ventana extends JFrame {
 		contentPane.add(btnNewButton);
 		
 		
+	}
+	
+	private static boolean isNumeric(String cadena){
+		try {
+			Integer.parseInt(cadena);
+			return true;
+		} catch (NumberFormatException nfe){
+			return false;
+		}
 	}
 }
